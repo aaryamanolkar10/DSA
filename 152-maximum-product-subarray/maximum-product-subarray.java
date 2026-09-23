@@ -1,19 +1,20 @@
 class Solution {
     public int maxProduct(int[] nums) {
-        int length=nums.length;
+        int n=nums.length;
+        int leftProduct=1;
+        int rightProduct=1;
+        int ans=nums[0];
 
-        if(length==0) return 0;
+        for(int i=0;i<n;i++){
+            leftProduct = leftProduct==0 ? 1:leftProduct;
+            rightProduct = rightProduct==0 ? 1:rightProduct;
 
-        int min=nums[0];
-        int max=nums[0];
-        int result=nums[0];
+            leftProduct *=nums[i];
+            rightProduct *=nums[n-i-1];
 
-        for(int i=1;i<length;i++){
-            int temp_max=Math.max(nums[i]*max,Math.max(nums[i]*min,nums[i]));
-            min=Math.min(nums[i]*max,Math.min(nums[i]*min,nums[i]));
-            max=temp_max;
-            result=Math.max(result,max);
+            ans=Math.max(ans,Math.max(leftProduct,rightProduct));
+
         }
-        return result;
+        return ans;
     }
 }
